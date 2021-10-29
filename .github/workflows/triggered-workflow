@@ -1,9 +1,9 @@
 name: Workflow triggered workflow
 on:
   workflow_run:
-    workflow:["Manually triggered workflow"]
-    types
-	  - completed
+    workflow: ["Manually triggered workflow"]
+    types:
+      - completed
 
 jobs:
   wf-triggered:
@@ -12,5 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Hello ${{ github.event.inputs.name }}!"
-          echo "- in ${{ github.event.inputs.home }}!"
+          echo "Workflow was triggered from another workflow !"
+          
