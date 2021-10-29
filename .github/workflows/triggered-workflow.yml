@@ -8,7 +8,6 @@ on:
 jobs:
   wf-triggered:
     name: Work Flow Triggered
-	branches: [test]
     runs-on: ubuntu-latest
     steps:
       - run: |
