@@ -1,0 +1,15 @@
+name: Workflow triggered workflow
+on:
+  workflow_run:
+    workflows: ["Manually triggered workflow"]
+    types:
+      - completed
+
+jobs:
+  wf-triggered:
+    name: Work Flow Triggered
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Workflow was triggered from another workflow !"
+          
