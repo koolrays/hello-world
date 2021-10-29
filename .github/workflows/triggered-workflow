@@ -3,7 +3,7 @@ on:
   workflow_run:
     workflows: ["Manually triggered workflow"]
     types:
-      - completed
+      - complete
 
 jobs:
   wf-triggered:
