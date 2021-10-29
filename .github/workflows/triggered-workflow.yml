@@ -2,8 +2,8 @@ name: Workflow triggered workflow
 on:
   workflow_run:
     workflows: ["Manually triggered workflow"]
-    type:
-      - complete
+    types:
+      - completed
 
 jobs:
   wf-triggered:
