@@ -23,10 +23,20 @@ jobs:
           echo "FIRSTNAME=Johnson" >> $GITHUB_ENV
   say_hi:
     needs: say_hello
+    runs-on: ubuntu-latest
+    outputs:
+      lastname: ${{ needs.say_hello.outputs.firstname }}
     env:
       first_name: ${{ needs.say_hello.outputs.firstname }}
-    runs-on: ubuntu-latest
+    
     steps:
       - run: |
           echo "Hi ${{ github.event.inputs.name }} ${{ env.first_name }} !"
-          
+  say_bye:
+    needs: say_hi
+    env:
+      last_name: ${{ needs.say_hi.outputs.lastname }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Hi, my lastname is: ${{ env.last_name }} !"
