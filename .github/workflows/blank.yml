@@ -20,7 +20,7 @@ jobs:
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
-          echo "FIRSTNAME=Johnson" >> $GITHUB_ENV
+          echo "FIRSTNAME=dev" >> $GITHUB_ENV
   say_hi:
     needs: say_hello
     runs-on: ubuntu-latest
