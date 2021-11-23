@@ -15,28 +15,28 @@ jobs:
   say_hello:
     runs-on: ubuntu-latest
     outputs:
-      firstname: ${{ env.FIRSTNAME }}
+      route: ${{ env.ROUTE }}
     steps:
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
-          echo "FIRSTNAME=dev" >> $GITHUB_ENV
+          echo "ROUTE=https://dev.to" >> $GITHUB_ENV
   say_hi:
     needs: say_hello
     runs-on: ubuntu-latest
     outputs:
-      lastname: ${{ needs.say_hello.outputs.firstname }}
+      other_route: ${{ needs.say_hello.outputs.route }}
     env:
-      first_name: ${{ needs.say_hello.outputs.firstname }}
+      destnation_url: ${{ needs.say_hello.outputs.route }}
     
     steps:
       - run: |
-          echo "Hi ${{ github.event.inputs.name }} ${{ env.first_name }} !"
+          echo "Hi ${{ github.event.inputs.name }} destination URL is: ${{ env.destnation_url }} !"
   say_bye:
     needs: say_hi
     env:
-      last_name: ${{ needs.say_hi.outputs.lastname }}
+      other_destination: ${{ needs.say_hi.outputs.other_route }}
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Hi, my lastname is: ${{ env.last_name }} !"
+          echo "Hi, my other destination is: ${{ env.other_destination }} !"
