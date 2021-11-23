@@ -22,7 +22,7 @@ jobs:
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
           echo "ROUTE=https://dev.to" >> $GITHUB_ENV
-          echo "TEST="ThiSis@T3st" >> $GITHUB_ENV
+          echo "TEST=ThiSis@T3st" >> $GITHUB_ENV
   say_hi:
     needs: say_hello
     runs-on: ubuntu-latest
