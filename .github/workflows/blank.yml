@@ -16,11 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       route: ${{ env.ROUTE }}
+      test: ${{ env.TEST }}
     steps:
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
           echo "ROUTE=https://dev.to" >> $GITHUB_ENV
+          echo "TEST="ThiSis@T3st" >> $GITHUB_ENV
   say_hi:
     needs: say_hello
     runs-on: ubuntu-latest
@@ -28,10 +30,13 @@ jobs:
       other_route: ${{ needs.say_hello.outputs.route }}
     env:
       destnation_url: ${{ needs.say_hello.outputs.route }}
+      test: ${{ needs.say_hello.outputs.test }}
     
     steps:
       - run: |
           echo "Hi ${{ github.event.inputs.name }} destination URL is: ${{ env.destnation_url }} !"
+          result=`htpasswd -nbBC 10 "" ${{ env.test }} | tr -d ':\n' | sed 's/$2y/$2a/'`
+          echo $result
   say_bye:
     needs: say_hi
     env:
