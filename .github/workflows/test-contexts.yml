@@ -5,6 +5,12 @@ on:
 jobs:
   one:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - region: cc
+            full_name: CanadaCentral
     steps:
       - name: Dump GitHub context
         env:
