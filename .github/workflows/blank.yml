@@ -26,7 +26,7 @@ jobs:
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
-          if [ ${{ github.event.inputs.use-emoji }} ]
+          if [ ${{ github.event.inputs.use-emoji }} == true ]
           then
             echo 'Success. Using emojis 🎉🤣.'
           else
