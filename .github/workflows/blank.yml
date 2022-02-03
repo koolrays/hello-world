@@ -3,9 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Person to greet'
-        required: true
-        default: 'Mona the Octocat'
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
       home:
         description: 'location'
         required: false
