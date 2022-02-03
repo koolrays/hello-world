@@ -8,6 +8,9 @@ on:
         options: 
         - monalisa
         - cschleiden
+      use-emoji:
+       type: boolean
+       description: Include 🎉🤣 emojis
       home:
         description: 'location'
         required: false
