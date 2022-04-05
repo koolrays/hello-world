@@ -9,11 +9,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - gh_env: main
+          - gh_env: master
             full_name: original
           - gh_env: test
             full_name: testing
-    if: github.ref_name == ${{ matrix.gh_env }}
+    if: github.ref_name == '${{ matrix.gh_env }}'
     steps:
       - name: Dump matrix context
         env:
