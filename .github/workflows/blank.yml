@@ -3,9 +3,14 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: 'Person to greet'
-        required: true
-        default: 'Mona the Octocat'
+        type: choice
+        description: Who to greet
+        options: 
+        - monalisa
+        - cschleiden
+      use-emoji:
+       type: boolean
+       description: Include 🎉🤣 emojis
       home:
         description: 'location'
         required: false
@@ -14,7 +19,16 @@ on:
 jobs:
   say_hello:
     runs-on: ubuntu-latest
+    outputs:
+      route: ${{ env.ROUTE }}
+      test: ${{ env.TEST }}
     steps:
       - run: |
           echo "Hello ${{ github.event.inputs.name }}!"
           echo "- in ${{ github.event.inputs.home }}!"
+          if [ ${{ github.event.inputs.use-emoji }} == true ]
+          then
+            echo 'Success. Using emojis 🎉🤣.'
+          else
+            echo 'No emojis'
+          fi

@@ -1,0 +1,21 @@
+name: 'Test Contexts'
+on: 
+  workflow_dispatch:
+
+jobs:
+  one:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - gh_env: main
+            full_name: original
+          - gh_env: test
+            full_name: testing
+    if: github.ref_name == ${{ matrix.gh_env }}
+    steps:
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
