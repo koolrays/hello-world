@@ -23,7 +23,7 @@ jobs:
             
     runs-on: ubuntu-latest
     environment: ${{ matrix.gh_environment }}
-    if: ${{ github.event.inputs.cluster == matrix.gh_environment || github.event.inputs.cluster == 'all-clusters' }}
+    if: ${{ github.event.inputs.cluster }} == ${{ matrix.gh_environment }} || ${{ github.event.inputs.cluster }} == 'all-clusters'
     
     steps:
       - run: |
