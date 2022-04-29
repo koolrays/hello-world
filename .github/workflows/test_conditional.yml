@@ -1,4 +1,4 @@
-name: Test Workflow Execution
+name: 'Test Workflow Execution'
 on:
   workflow_dispatch:
     inputs:
@@ -10,7 +10,7 @@ on:
         - non-prod
         - all-clusters
       required: true
-      default: 'all-clusters'
+      
 jobs:
   say_hello:
     strategy:
