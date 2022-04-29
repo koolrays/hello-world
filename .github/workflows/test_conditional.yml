@@ -1,0 +1,30 @@
+name: Test Workflow Execution
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        type: choice
+        description: What Cluster to deploy
+        options: 
+        - prod
+        - non-prod
+        - all-clusters
+      required: true
+      default: 'all-clusters'
+jobs:
+  say_hello:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - gh_environment: non-prod
+          - gh_environment: prod
+            
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.gh_environment }}
+    if: ${{ github.event.inputs.cluster == matrix.gh_environment || github.event.inputs.cluster == 'all-clusters' }}
+    
+    steps:
+      - run: |
+          echo "Hello from ${{ secrets.MY_ENVIRONMENT }}!"
+          
