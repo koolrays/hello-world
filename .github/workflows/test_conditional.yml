@@ -2,14 +2,15 @@ name: 'Test Workflow Execution'
 on:
   workflow_dispatch:
     inputs:
-      cluster:
+      name:
         type: choice
         description: What Cluster to deploy
         options: 
         - prod
         - non-prod
         - all-clusters
-      required: true
+        required: true
+        default: all-clusters
       
 jobs:
   say_hello:
