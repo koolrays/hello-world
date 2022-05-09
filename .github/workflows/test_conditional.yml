@@ -13,18 +13,31 @@ on:
         default: all-clusters
       
 jobs:
-  say_hello:
+  build-matrix:
+    runs-on: ubuntu-latest
+    steps:
+      - id: set-matrix
+        run: 
+         if  [[ ${{ github.event.inputs.name }} == 'prod' ]];
+         then
+           echo '::set-output name=run_matrix::[{"gh_environment":"prod" }]'
+         elif [[ ${{ github.event.inputs.name }} == 'non-prod' ]];
+         then
+           echo '::set-output name=run_matrix::[{"gh_environment":"non-prod" }]'
+         else
+           echo '::set-output name=run_matrix::[{"gh_environment":"prod" },{"gh_environment":"non-prod"}]'
+         fi  
+    outputs:
+      run_matrix: ${{ steps.set-matrix.outputs.run_matrix }}
+
+  run-matrix:
+    needs: build-matrix
+    runs-on: ubuntu-latest
+    environment: ${{ matrix.gh_environment }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - gh_environment: non-prod
-          - gh_environment: prod
-            
-    runs-on: ubuntu-latest
-    environment: ${{ matrix.gh_environment }}
-    if: ${{ github.event.inputs.cluster }} == ${{ matrix.gh_environment }} || ${{ github.event.inputs.cluster }} == 'all-clusters'
-    
+        include: ${{ fromJson(needs.build-matrix.outputs.run_matrix) }}
     steps:
       - run: |
           echo "Hello from ${{ secrets.MY_ENVIRONMENT }}!"
