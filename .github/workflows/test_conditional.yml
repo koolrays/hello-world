@@ -37,6 +37,9 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.build-matrix.outputs.run_matrix) }}
     steps:
-      - run: |
-          echo "Hello from ${{ secrets.MY_ENVIRONMENT }}!"
+      - name: Hello from environment
+        env:
+         LOCATION: ${{ secrets.MY_ENVIRONMENT }}
+        run:
+          echo "Hello from ${LOCATION}!"
           
