@@ -17,16 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: set-matrix
-        run: 
-         if  [[ ${{ github.event.inputs.name }} == 'prod' ]];
-         then
-           echo '::set-output name=run_matrix::[{"gh_environment":"prod" }]'
-         elif [[ ${{ github.event.inputs.name }} == 'non-prod' ]];
-         then
-           echo '::set-output name=run_matrix::[{"gh_environment":"non-prod" }]'
-         else
-           echo '::set-output name=run_matrix::[{"gh_environment":"prod" },{"gh_environment":"non-prod"}]'
-         fi  
+        run: |-
+          if  [[ ${{ github.event.inputs.name }} == 'prod' ]]; then
+            echo '::set-output name=run_matrix::[{"gh_environment":"prod" }]'
+          elif [[ ${{ github.event.inputs.name }} == 'non-prod' ]]; then
+            echo '::set-output name=run_matrix::[{"gh_environment":"non-prod" }]'
+          else
+            echo '::set-output name=run_matrix::[{"gh_environment":"prod" },{"gh_environment":"non-prod"}]'
+          fi  
     outputs:
       run_matrix: ${{ steps.set-matrix.outputs.run_matrix }}
 
