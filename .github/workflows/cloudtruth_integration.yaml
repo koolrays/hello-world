@@ -1,0 +1,38 @@
+name: 'demo'
+on:
+  workflow_dispatch:
+
+jobs:
+  secrets-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check-secrets.outputs.ok }}
+    steps:
+      - name: check for secrets needed to run demo
+        id: check-secrets
+        run: |
+          if [ ! -z "${{ secrets.CLOUDTRUTH_TOKEN }}" ]; then
+            echo "::set-output name=ok::true"
+          fi
+    
+  demo:
+    needs:
+      - secrets-gate
+    if: ${{ needs.secrets-gate.outputs.ok == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cloudtruth/configure-action@v2
+        with:
+          apikey: "${{ secrets.CLOUDTRUTH_TOKEN }}"
+          project: "${{ github.repository }}"
+          environment: development
+
+      - name: demonstrate secrets redaction
+        run: |
+          echo CTTEST_NOT_A_SECRET=${CTTEST_NOT_A_SECRET}
+          echo CTTEST_TOTALLY_A_SECRET=${CTTEST_TOTALLY_A_SECRET}
+          [ ! -z "${CTTEST_NOT_A_SECRET}" ] || exit 1
+          [ ! -z "${CTTEST_TOTALLY_A_SECRET}" ] || exit 1
+      - name: dump the environment
+        run: |
+          printenv | sort
