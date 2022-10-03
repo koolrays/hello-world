@@ -24,7 +24,7 @@ jobs:
       - uses: cloudtruth/configure-action@v2
         with:
           apikey: "${{ secrets.CLOUDTRUTH_TOKEN }}"
-          project: "${{ github.repository }}"
+          project: "hello-world"
           environment: development
 
       - name: demonstrate secrets redaction
