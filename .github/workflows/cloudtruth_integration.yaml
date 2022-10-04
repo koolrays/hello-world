@@ -28,7 +28,10 @@ jobs:
           environment: development
 
       - name: demonstrate secrets redaction
+        env:
+         MY_TEST: ${CTTEST_NOT_A_SECRET}
         run: |
+          echo "${MY_TEST} from environemnt variable"
           echo CTTEST_NOT_A_SECRET=${CTTEST_NOT_A_SECRET}
           echo CTTEST_TOTALLY_A_SECRET=${CTTEST_TOTALLY_A_SECRET}
           [ ! -z "${CTTEST_NOT_A_SECRET}" ] || exit 1
