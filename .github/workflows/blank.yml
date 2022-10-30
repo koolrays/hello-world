@@ -10,7 +10,7 @@ on:
         - cschleiden
       use-emoji:
        type: boolean
-       description: Include 🎉🤣 emojis
+       description: Include 🎉🤣 emojis ex x.x.x
       environment:
         type: environment
       home:
