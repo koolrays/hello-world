@@ -11,6 +11,7 @@ on:
       use-emoji:
        type: boolean
        description: Include 🎉🤣 emojis ex x.x.x
+       required: true
       environment:
         type: environment
       home:
