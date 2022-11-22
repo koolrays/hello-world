@@ -33,7 +33,7 @@ jobs:
           then
             echo 'Success. Using emojis 🎉🤣.'
             exit 0
-            echo " This line should not be executed'
+            echo 'This line should not be executed'
           else
             echo 'No emojis'
             exit 1
