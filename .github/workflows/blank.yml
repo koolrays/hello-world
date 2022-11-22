@@ -32,6 +32,9 @@ jobs:
           if [ ${{ github.event.inputs.use-emoji }} == true ]
           then
             echo 'Success. Using emojis 🎉🤣.'
+            exit 0
+            echo " This line should not be executed'
           else
             echo 'No emojis'
+            exit 1
           fi
