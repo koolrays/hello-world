@@ -1,5 +1,5 @@
 # An employee record
-martin:
+employee:
   name: Martin D'vloper
   job: Developer
   skill: Elite
