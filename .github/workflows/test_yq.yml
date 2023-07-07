@@ -28,5 +28,5 @@ jobs:
         env:
           NEW_NAME: ${{ github.event.inputs.name }}
         run: |
-           yq  '.appVersionOverride = strenv(NEW_NAME)' -i employee.yaml
+           yq  '.employee.name = strenv(NEW_NAME)' -i employee.yaml
            cat employee.yaml
