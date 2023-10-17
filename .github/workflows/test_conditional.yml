@@ -45,4 +45,6 @@ jobs:
          LOCATION: ${{ secrets.MY_ENVIRONMENT }}
         run:
           echo "Hello from ${LOCATION}!"
+          sleep 30s
+
           
