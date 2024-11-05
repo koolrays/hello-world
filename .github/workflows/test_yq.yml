@@ -1,28 +1,32 @@
-name: Test YQ
+name: Test Condition
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'What is your name'
-        required: false
-        default: 'Jerome'
+      environment:
+        description: Environment to run action in. 
+        type: choice
+        required: true
+        default: 'dev-cc'
+        options:
+        - dev-use
+        - dev-usw
+        - dev-cc
+        - test-cc
 
 jobs:
-  test_yq:
+  test_condition:
     runs-on: ubuntu-latest
     env:
-      WORKINGDIRECTORY: 'demofiles'
+      cluster_env_suffix: ${{ inputs.environment == "dev-cc" && "dev" || inputs.environment }}
     defaults:
       run:
         shell: bash
-        working-directory: ${{ env.WORKINGDIRECTORY }}
+        
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
       - name: Substitute name
-        env:
-          NEW_NAME: ${{ github.event.inputs.name }}
         run: |
-           yq  '.employee.name = strenv(NEW_NAME)' -i employee.yaml
-           cat employee.yaml
+           echo echo -e "\e[32m[INFO] Cluster prefix is: ${{ env.cluster_env_suffix }} "
+           
