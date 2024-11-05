@@ -6,18 +6,18 @@ on:
         description: Environment to run action in. 
         type: choice
         required: true
-        default: "dev-cc"
+        default: dev-cc
         options:
-        - "dev-use"
-        - "dev-usw"
-        - "dev-cc"
-        - "test-cc"
+        - dev-use
+        - dev-usw
+        - dev-cc
+        - test-cc
 
 jobs:
   test_condition:
     runs-on: ubuntu-latest
     env:
-      cluster_env_suffix: ${{ inputs.environment == "dev-cc" && "dev" || inputs.environment }}
+      cluster_env_suffix: ${{ inputs.environment == 'dev-cc' && 'dev' || inputs.environment }}
     defaults:
       run:
         shell: bash
