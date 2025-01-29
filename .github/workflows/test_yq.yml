@@ -29,4 +29,9 @@ jobs:
       - name: Substitute name
         run: |
            echo echo -e "\e[32m[INFO] Cluster prefix is: ${{ env.cluster_env_suffix }} \e[0m"
+      - name: Test Python
+        shell: python
+        run: |
+          import os
+          print(os.environ['PATH'])
            
